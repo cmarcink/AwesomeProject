@@ -18,7 +18,7 @@ import {
 import qs from "qs";
 import config from "./config.js";
 
-function OAuth(clientId, cb) {
+function OAuth(client_id, cb) {
   Linking.addEventListener("url", handleUrl);
   function handleUrl(event) {
     // console.log(event.url);
@@ -30,10 +30,10 @@ function OAuth(clientId, cb) {
     cb(query.access_token);
   }
   const oauthurl = `https://www.fitbit.com/oauth2/authorize?${qs.stringify({
-  clientId,
+  client_id,
   response_type: "token",
   scope: "heartrate activity activity profile sleep",
-  redirect_uri: "exp://gj-a9x.anonymous.awesomeproject.exp.direct:80",
+  redirect_uri: "exp://en-mzb.anonymous.awesomeproject.exp.direct:80",
   expires_in: "31536000",
   })}`;
   console.log("url:" + oauthurl);
@@ -56,7 +56,7 @@ function getData(access_token) {
 export default class App extends Component {
   componentDidMount() {
     console.log("componentDidMount");
-    OAuth(config.clientId, (token) => { 
+    OAuth(config.client_id, (token) => { 
       getData(token)
       .then(res => res.json())
       .then((res) => {
